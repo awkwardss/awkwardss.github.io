@@ -151,6 +151,129 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/08/21/数据结构笔记1/">
+                数据结构笔记1
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-21</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="Ch1-数据结构一些基本概念和术语"><a href="#Ch1-数据结构一些基本概念和术语" class="headerlink" title="Ch1 数据结构一些基本概念和术语"></a>Ch1 数据结构一些基本概念和术语</h3><p>1.1 基本概念</p>
+<ul>
+<li>数据</li>
+<li>数据元素：组成数据的、有一定意义的基本单位。通常作为整体被计算机处理。也被称为记录</li>
+<li>数据项：数据元素可由多个数据项组成，数据项是数据不可分割的最小单位</li>
+<li>数据对象：性质相同的数据元素的集合，是数据的子集。</li>
+<li>数据结构：相互之间存在一种或多种特定关系的<b>数据元素</b>的集合。</li>
+</ul>
+<p>关系：</p>
+<p>数据<strong>_由多个..组成</strong>&gt;数据对象<br>            ^|<br>性质相同的数据元素的集合||包含多个<br>            |v<br>            数据元素<strong>_</strong>&gt;数据项（最小单位）<br>eg：<br>生物<strong>——————————————</strong>&gt;禽类<br>              |<br>            |<br>            v<br>            鸡——————&gt;嘴/眼睛/….</p>
+<p>1.2 逻辑结构和物理结构</p>
+<ul>
+<li>逻辑结构：</li>
+</ul>
+<ol>
+<li>集合结构：结构中的数据元素出了同属于一个集合外，没有其他关系</li>
+<li>线性结构：一对一</li>
+<li>树结构：一对多</li>
+<li>图结构：多对多</li>
+</ol>
+<ul>
+<li>物理结构：</li>
+</ul>
+<ol>
+<li>顺序存储结构</li>
+<li>链式存储结构</li>
+</ol>
+<h3 id="Ch2-算法"><a href="#Ch2-算法" class="headerlink" title="Ch2 算法"></a>Ch2 算法</h3><ul>
+<li><p>函数的渐进增长：<br>两个函数h(n)和g(n)，如果存在一个n值使得n选值大于此n时h(n)总大于g(n)，那么我们称h(n)的渐进增长快于g(n)。</p>
+</li>
+<li><p>推导大O阶方法：</p>
+</li>
+</ul>
+<ol>
+<li>用常数1取代运行时间中的加法常数。（所以常数阶全都是O（1）而非O（某个常数））</li>
+<li>在修改后的运行次数函数中，只保留最高阶项。</li>
+<li>若最高阶项存在且不是1， 则去除与这个项相乘的常数。</li>
+</ol>
+<ul>
+<li>常见的时间复杂度排序：<br>O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n2)&lt;O(n3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)<br>左3：比较优秀；中2：一般：右：差</li>
+</ul>
+<h3 id="Ch3-线性表"><a href="#Ch3-线性表" class="headerlink" title="Ch3 线性表"></a>Ch3 线性表</h3><blockquote>
+<p>零个或多个相同类型的数据元素的有限序列。<br>3.1 特点：</p>
+<ol>
+<li>a1~an-1有且只有一个后继元素，a2~an有且只有一个前驱元素</li>
+<li>表内元素个数有限</li>
+<li>表内元素从1开始标识（实现时使用的数组本身则是从0计数）</li>
+</ol>
+<ul>
+<li>n=0时称为空表</li>
+<li>在较复杂的线性表中，一个数据元素可由多个数据项组成（eg：学号+姓名+性别+出生年月……）</li>
+</ul>
+</blockquote>
+<p>3.2 存储结构<br>1) 顺序存储<br> 指用一段地址连续的存储单元依次存储线性表的数据元素。</p>
+<ul>
+<li>可用一维数组类实现顺序存储结构。</li>
+<li>优点：查找复杂度O(1)；无需为表示表中元素间的逻辑关系增加额外的存储空间</li>
+<li>缺点：插入/删除复杂度O(n)；线性表长度变化较大时，难以确定存储空间的容量；造成存储空间的碎片</li>
+</ul>
+<p>由于顺序存储这样那样的问题，我们有了另外一种存储方法：<br>2) 链式存储</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/08/21/Median-of-Two-Sorted-Arrays/">
+                Median of Two Sorted Arrays
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-21</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="4-两个有序数列的中位数-Median-of-Two-Sorted-Arrays"><a href="#4-两个有序数列的中位数-Median-of-Two-Sorted-Arrays" class="headerlink" title="4. 两个有序数列的中位数 Median of Two Sorted Arrays"></a>4. 两个有序数列的中位数 Median of Two Sorted Arrays</h2><p>There are two sorted arrays nums1 and nums2 of size m and n respectively.</p>
+<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
+<p>Example 1:<br>nums1 = [1, 3]<br>nums2 = [2]</p>
+<p>The median is 2.0<br>Example 2:<br>nums1 = [1, 2]<br>nums2 = [3, 4]</p>
+<p>The median is (2 + 3)/2 = 2.5</p>
+<h3 id="SOL1"><a href="#SOL1" class="headerlink" title="SOL1"></a>SOL1</h3><p>由于两个数列都是有序的，直接merge两个数组再求中间值，复杂度O（n）。</p>
+<ul>
+<li>注意最后返回值做除法时，不能直接写/2，会自动进行转换变成int，提醒是要注意返回值的格式</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[nums1.length+nums2.length];</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length &amp;&amp; j&lt;nums2.length)&#123;</div><div class="line">            <span class="keyword">if</span>(nums1[i]&lt;nums2[j])&#123;</div><div class="line">                array[k]=nums1[i];</div><div class="line">                k++;</div><div class="line">                i++;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                array[k]=nums2[j];</div><div class="line">                k++;</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length)&#123;</div><div class="line">            array[k]=nums1[i];</div><div class="line">            k++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(j&lt;nums2.length)&#123;</div><div class="line">            array[k]=nums2[j];</div><div class="line">            k++;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//compute median</span></div><div class="line">        <span class="keyword">if</span>(array.length%<span class="number">2</span> ==<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> array[(<span class="keyword">int</span>)(array.length/<span class="number">2</span>)];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> (array[(array.length/<span class="number">2</span>)]+array[(array.length/<span class="number">2</span>)-<span class="number">1</span>])/<span class="number">2.0</span>; <span class="comment">//！！！这里一定不能写/2，会自动变成int！！！</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="SOL2"><a href="#SOL2" class="headerlink" title="SOL2"></a>SOL2</h3><p>题目要求里面是需要log(m+n)</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/">
                 Longest Substring Without Repeating Characters
             </a>
@@ -389,19 +512,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2017/08/21/数据结构笔记1/">数据结构笔记1</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/08/21/Median-of-Two-Sorted-Arrays/">Median of Two Sorted Arra</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/">Longest Substring Without</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2017/08/20/Minimum-Time-Difference/">Minimum Time Difference</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/19/Add-Two-Numbers/">Add Two Numbers</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/07/24/Two-Sum/">Two Sum</a>
             </li>
             
         </ul>
