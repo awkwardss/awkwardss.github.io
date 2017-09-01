@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Median of Two Sorted Arrays"/>
+        <meta property="og:title" content="AWKWARD-SS复健站"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Median of Two Sorted Arrays - AWKWARD-SS复健站</title>
+    <title>AWKWARD-SS复健站</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -131,24 +131,24 @@
         <!--Title and Logo-->
         <header>
     <div class="logo">
-        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        <a href="/"><i class="logo-icon fa fa fa-tags" aria-hidden="true"></i></a>
         
     </div>
 </header>
-
-        <section class="main">
-            
+        
+            <section class="main">
+                
 <div class="post">
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2017/08/21/Median-of-Two-Sorted-Arrays/">
-                Median of Two Sorted Arrays
+            <a href="/about/index.html">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2017-08-21</span>
+                <span class="date">2017-09-02</span>
             
             
             
@@ -161,36 +161,22 @@
         
 
         <!-- Post Content -->
-        <h2 id="4-两个有序数列的中位数-Median-of-Two-Sorted-Arrays"><a href="#4-两个有序数列的中位数-Median-of-Two-Sorted-Arrays" class="headerlink" title="4. 两个有序数列的中位数 Median of Two Sorted Arrays"></a>4. 两个有序数列的中位数 Median of Two Sorted Arrays</h2><p>There are two sorted arrays nums1 and nums2 of size m and n respectively.</p>
-<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
-<p>Example 1:<br>nums1 = [1, 3]<br>nums2 = [2]</p>
-<p>The median is 2.0<br>Example 2:<br>nums1 = [1, 2]<br>nums2 = [3, 4]</p>
-<p>The median is (2 + 3)/2 = 2.5</p>
-<h3 id="SOL1"><a href="#SOL1" class="headerlink" title="SOL1"></a>SOL1</h3><p>由于两个数列都是有序的，直接merge两个数组再求中间值，复杂度O（n）。</p>
-<ul>
-<li>注意最后返回值做除法时，不能直接写/2，会自动进行转换变成int，提醒是要注意返回值的格式</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[nums1.length+nums2.length];</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length &amp;&amp; j&lt;nums2.length)&#123;</div><div class="line">            <span class="keyword">if</span>(nums1[i]&lt;nums2[j])&#123;</div><div class="line">                array[k]=nums1[i];</div><div class="line">                k++;</div><div class="line">                i++;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                array[k]=nums2[j];</div><div class="line">                k++;</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length)&#123;</div><div class="line">            array[k]=nums1[i];</div><div class="line">            k++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(j&lt;nums2.length)&#123;</div><div class="line">            array[k]=nums2[j];</div><div class="line">            k++;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//compute median</span></div><div class="line">        <span class="keyword">if</span>(array.length%<span class="number">2</span> ==<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> array[(<span class="keyword">int</span>)(array.length/<span class="number">2</span>)];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> (array[(array.length/<span class="number">2</span>)]+array[(array.length/<span class="number">2</span>)-<span class="number">1</span>])/<span class="number">2.0</span>; <span class="comment">//！！！这里一定不能写/2，会自动变成int！！！</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="SOL2"><a href="#SOL2" class="headerlink" title="SOL2"></a>SOL2</h3><p>题目要求里面是需要log(m+n)</p>
-<p>log复杂度, 参考水中的鱼blog的思路, 使用二分法. 其实看到log复杂度应该能直接想到二分的思路.<br><del>脑死,好难,我再想想,思路想出来了竟然不会写我屮艸芔茻</del></p>
-<h3 id="我再想想"><a href="#我再想想" class="headerlink" title="我再想想!!!!"></a>我再想想!!!!</h3>
+        <hr>
+<p>title: about</p>
+<h2 id="date-2017-09-02-00-30-26"><a href="#date-2017-09-02-00-30-26" class="headerlink" title="date: 2017-09-02 00:30:26"></a>date: 2017-09-02 00:30:26</h2><p>Talk is cheap.<br>Show me the code.-</p>
+
     </div>
 
     
 
-    
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/leetcode/">#leetcode</a>
-        </div>
     
 
     <!-- Comments -->
     
 
 </div>
-        </section>
-
+            </section>
+        
     </div>
 </div>
 
