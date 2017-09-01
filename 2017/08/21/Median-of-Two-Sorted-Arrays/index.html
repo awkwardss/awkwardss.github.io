@@ -178,7 +178,8 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[nums1.length+nums2.length];</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length &amp;&amp; j&lt;nums2.length)&#123;</div><div class="line">            <span class="keyword">if</span>(nums1[i]&lt;nums2[j])&#123;</div><div class="line">                array[k]=nums1[i];</div><div class="line">                k++;</div><div class="line">                i++;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                array[k]=nums2[j];</div><div class="line">                k++;</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length)&#123;</div><div class="line">            array[k]=nums1[i];</div><div class="line">            k++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(j&lt;nums2.length)&#123;</div><div class="line">            array[k]=nums2[j];</div><div class="line">            k++;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//compute median</span></div><div class="line">        <span class="keyword">if</span>(array.length%<span class="number">2</span> ==<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> array[(<span class="keyword">int</span>)(array.length/<span class="number">2</span>)];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> (array[(array.length/<span class="number">2</span>)]+array[(array.length/<span class="number">2</span>)-<span class="number">1</span>])/<span class="number">2.0</span>; <span class="comment">//！！！这里一定不能写/2，会自动变成int！！！</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="SOL2"><a href="#SOL2" class="headerlink" title="SOL2"></a>SOL2</h3><p>题目要求里面是需要log(m+n)</p>
-
+<p>log复杂度, 参考水中的鱼blog的思路, 使用二分法. 其实看到log复杂度应该能直接想到二分的思路.<br><del>脑死,好难,我再想想,思路想出来了竟然不会写我屮艸芔茻</del></p>
+<h3 id="我再想想"><a href="#我再想想" class="headerlink" title="我再想想!!!!"></a>我再想想!!!!</h3>
     </div>
 
     
@@ -219,6 +220,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2017/08/31/Longest-Palindromic-Substring/">Longest Palindromic Subst</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2017/08/21/数据结构笔记1/">数据结构笔记1</a>
             </li>
             
@@ -228,10 +233,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/">Longest Substring Without</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/20/Minimum-Time-Difference/">Minimum Time Difference</a>
             </li>
             
         </ul>

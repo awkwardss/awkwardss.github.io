@@ -151,6 +151,69 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/08/31/Longest-Palindromic-Substring/">
+                Longest Palindromic Substring
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-08-31</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="5-Longest-Palindromic-Substring-最长回文子字符串"><a href="#5-Longest-Palindromic-Substring-最长回文子字符串" class="headerlink" title="5. Longest Palindromic Substring 最长回文子字符串"></a>5. Longest Palindromic Substring 最长回文子字符串</h2><p>Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.</p>
+<p>Example:</p>
+<p>Input: “babad”</p>
+<p>Output: “bab”</p>
+<p>Note: “aba” is also a valid answer.<br>Example:</p>
+<p>Input: “cbbd”</p>
+<p>Output: “bb”</p>
+<ul>
+<li>单个字符也会返回回文</li>
+</ul>
+<h3 id="SOL"><a href="#SOL" class="headerlink" title="SOL"></a>SOL</h3><h4 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h4><p>暴力搜索, 直接对字符串中每个字符左右搜索, 每次搜索分别会搜索奇数和偶数两种情况, 复杂度O(n2).</p>
+<p>一些tip:</p>
+<ol>
+<li>substring的范围是[startIndex, endIndex-1], 分场令人悲愤</li>
+<li>使用字符串时要时刻注意下标越界的情况, 会直接返回error –&gt; <b>而如果想防止越界, 也可以给首位再加上符号</b></li>
+<li>在字符串每个字符中间插入一个特殊符号, 可以一次处理奇偶两种情况, 会更加方便. (这也是Manache方法的核心之一)</li>
+<li>看上去很简单的暴力算法实现时也是有很多地方需要注意的, 而且出现数组/字符串/多对象时, index的加减运算一定要注意, 不要越界</li>
+<li>2k之类的是不对的, 乘法要写作2*k (内心崩溃, 感到自己的傻)</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*法1：暴力枚举*/</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i= <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j =<span class="number">0</span>;</div><div class="line">        String result = <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(s.length()&lt;<span class="number">3</span>) <span class="keyword">return</span> s;<span class="comment">//boundary</span></div><div class="line">        <span class="keyword">while</span>(i&lt;s.length()-<span class="number">1</span>)&#123;</div><div class="line">            <span class="comment">//even//没考虑到ccc这种情况 修正一下</span></div><div class="line">                <span class="keyword">while</span>(i-j&gt;=<span class="number">0</span> &amp;&amp; i+j+<span class="number">1</span>&lt;s.length())&#123;</div><div class="line">                    <span class="keyword">if</span>(s.charAt(i-j)==s.charAt(i+<span class="number">1</span>+j))&#123;</div><div class="line">                        j++;</div><div class="line">                     &#125; <span class="keyword">else</span>&#123;</div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(result.length()&lt;<span class="number">2</span>*j)&#123;</div><div class="line">                    result = s.substring(i-j+<span class="number">1</span>, i+j+<span class="number">1</span>);</div><div class="line">                    <span class="comment">//尼玛substring范围竟然是[startIndex, endIndex-1] 吐血 查半天bug</span></div><div class="line">                &#125;         </div><div class="line">            j=<span class="number">0</span>;<span class="comment">//清零</span></div><div class="line">             <span class="comment">//else //odd</span></div><div class="line">                <span class="keyword">while</span>(i-j&gt;=<span class="number">0</span> &amp;&amp; i+j&lt;s.length())&#123;</div><div class="line">                    <span class="keyword">if</span>(s.charAt(i-j)==s.charAt(i+j))&#123;</div><div class="line">                        j++;</div><div class="line">                     &#125; <span class="keyword">else</span>&#123; </div><div class="line">                        <span class="keyword">break</span>;</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span>(result.length()&lt;<span class="number">2</span>*j-<span class="number">1</span>)&#123;</div><div class="line">                    result = s.substring(i-j+<span class="number">1</span>, i+j);</div><div class="line">                &#125;       </div><div class="line">            </div><div class="line">            i++; j=<span class="number">0</span>;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="解法2"><a href="#解法2" class="headerlink" title="解法2"></a>解法2</h3><p>解法1的复杂度超时, 故开始写解法2. 查询到名为Manacher算法(<a href="https://www.akalin.com/longest-palindrome-linear-time" target="_blank" rel="external">马拉车算法</a><del>这个翻译-_,-</del>)的方法, 复杂度O(n)</p>
+<p>算法有三个核心:</p>
+<ol>
+<li>在每个字符中间加上特殊符号来合并对于奇偶中心对偶回文的处理, 同时增加一个同长度的数组来存储各字符可生成的最长回文串半径.</li>
+<li>算法的核心是根据大回文中轴线两侧若出现小回文,一定会在对侧有同样的小回文这一原理, 来减少不必要的回文字符检查数量, 加快确定最大回文串的中心</li>
+<li>在循环过程中, 对于已知最大回文串中心右侧从第一个字符到此串最右端最后一个字符, 中间的每个字符, 判定各个字符的回文串半径初始值的预估方法. 即根据已知最大回文串最右端字符位置和此字符位置的大小判定, 有三种可能: <ul>
+<li>最右字符位置&lt;=此字符位置, 超出最大串范围, 直接对初始值赋0;</li>
+<li>最右字符位置&gt;此字符位置,未超出最大串范围, 有两种可能.<br>  i: (最右字符位置-此字符位置)&lt;此字符以已知最大回文串中心为轴作轴对称得到的字符回文串半径, 即此字符到最右字符的距离比较短, 不够形成和轴对称字符完全相等长度的对称串, 此时初始半径值=(最右字符位置-此字符位置);</li>
+<li>最右字符位置&gt;此字符位置,未超出最大串范围.<br>  ii: (最右字符位置-此字符位置)&gt;=此字符以已知最大回文串中心为轴作轴对称得到的字符回文串半径, 即此字符到最右字符的距离比较长, 足够形成和轴对称字符完全相等长度的对称串, 此时初始半径值=此字符以已知最大回文串中心为轴作轴对称得到的字符回文串半径.</li>
+<li>在给回文串半径赋好初始值之后, 继续进行初始值+1, +2….的判定处理直到找到最大值. 之后若此字符半径最大值大于已知最大值, 那么更新最大回文中心的位置到此字符, 并延展最大回文串最右端的位置.<br>读起来比较拗口, 不过代码实现实际上比较简单. 马拉车算法对于字符串子回文串的处理非常全面, 可以处理很多回文串的相关问题.</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(s.length()&lt;<span class="number">2</span>) <span class="keyword">return</span> s;<span class="comment">//记住处理边界条件=L-</span></div><div class="line">        String pre = preProcess(s);</div><div class="line">        <span class="keyword">return</span> manacherProcess(pre, s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//预处理输入字符串</span></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">preProcess</span><span class="params">(String s)</span></span>&#123;</div><div class="line">        String sout = <span class="string">"$#"</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++)&#123;</div><div class="line">            sout = sout+s.charAt(i)+<span class="string">"#"</span>;</div><div class="line">        &#125;</div><div class="line">        sout+=<span class="string">"&amp;"</span>;<span class="comment">//这里最好和首字符不一样，不然处理时会处理不掉</span></div><div class="line">        <span class="keyword">return</span> sout;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">manacherProcess</span><span class="params">(String s, String formal)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> nowMaxCenter = <span class="number">0</span>;<span class="comment">//注意这里和后面初始值是0,特别是后面的,不然会越界</span></div><div class="line">        <span class="keyword">int</span> nowMaxRight = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span>[] palinRadius = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];</div><div class="line">        String result;</div><div class="line"></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;s.length()-<span class="number">1</span>; i++)&#123;</div><div class="line">            palinRadius[i] = nowMaxRight &gt; i ? Math.min(nowMaxRight-i, palinRadius[<span class="number">2</span>*nowMaxCenter-i]) : <span class="number">0</span>;</div><div class="line"></div><div class="line">            <span class="keyword">while</span>(s.charAt(i+palinRadius[i]+<span class="number">1</span>) == s.charAt(i-palinRadius[i]-<span class="number">1</span>))&#123;</div><div class="line">                palinRadius[i]++;</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(palinRadius[i]&gt;palinRadius[nowMaxCenter])&#123;</div><div class="line">                nowMaxCenter = i;</div><div class="line">                nowMaxRight = i+palinRadius[i];</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">//这段是不需要的, 因为上面for循环结束时一定会得到最大的回文串之中心与半径.</span></div><div class="line">        <span class="comment">//for(int i=1; i&lt;palinRadius.length()-1; i++)&#123;</span></div><div class="line">        <span class="comment">//    int maxValue = 0;</span></div><div class="line">        <span class="comment">//    maxValue = Math.max(palinRadius[i], maxValue);</span></div><div class="line">        <span class="comment">//&#125;</span></div><div class="line">        </div><div class="line">        <span class="comment">//返回结果</span></div><div class="line">        <span class="comment">//下面这两行去掉了, 会超时(估计是replace函数导致的), 直接用倒数第二行直接返回的结果</span></div><div class="line">        <span class="comment">//result = s.substring(nowMaxCenter-palinRadius[nowMaxCenter], nowMaxCenter+palinRadius[nowMaxCenter]+1);</span></div><div class="line">        <span class="comment">//return result.replace("#", "");//记得最后去掉“#”！</span></div><div class="line">        </div><div class="line">        result = formal.substring((nowMaxCenter-palinRadius[nowMaxCenter]-<span class="number">1</span>)/<span class="number">2</span>, (nowMaxCenter+palinRadius[nowMaxCenter]-<span class="number">1</span>)/<span class="number">2</span>);</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>关于最后那行, 根据处理过的字符串求原字符串中的子串位置, 大概解释一下为什么会是[(中心位置-半径-1)/2, (中心位置+半径-1)/2)<br>首先, 假设原字符串位置是从0,1,2,…i,i+1,….n-1, 被处理过的字符串分别在首尾加了”$#”和”#&amp;” 然后在原字符串中间插入字符”#”, 假设新字符串位置为0,1,2,…,j,j+1,…,2n+3.<br>那么原字符串对应新字符串的关系是: j = 2*(i+1), 但是实际上新字符串获得的子串首尾是”#”符号, 串首”#”符号的位置要+1才是正确的起点, 串尾”#”位置-1才是正确的终点.<br>故对于首位位置i对应新字符串位置j: ((j+1)/2)-1=i =&gt; i=(j-1)/2, j=中心位置-半径 =&gt; 首位位置=(中心位置-半径-1)/2;<br>对于尾位位置i对应新字符串位置j: ((j-1)/2)-1=i, 又因为substring右端index是不包含的,所以还要再给i+1, 最后函数才会取到位置(否则是i-1位置),则给i+1=(j-1)/2, j=中心位置-半径 =&gt; 尾位位置=(中心位置+半径-1)/2.</p>
+<h3 id="解法3"><a href="#解法3" class="headerlink" title="解法3"></a>解法3</h3><p>动态规划方法, <a href="http://www.hawstein.com/posts/dp-novice-to-advanced.html" target="_blank" rel="external">一个关于动规的解说链接</a><br><a href="https://segmentfault.com/a/1190000003914228" target="_blank" rel="external">参考答案链接</a></p>
+<p>睡觉去了, 明天写<del>病了一周的孱弱的胖子留</del></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/08/21/数据结构笔记1/">
                 数据结构笔记1
             </a>
@@ -166,7 +229,8 @@
 
     
         <div class="content">
-            <h3 id="Ch1-数据结构一些基本概念和术语"><a href="#Ch1-数据结构一些基本概念和术语" class="headerlink" title="Ch1 数据结构一些基本概念和术语"></a>Ch1 数据结构一些基本概念和术语</h3><p>1.1 基本概念</p>
+            <p>声明：大部分内容来自《大话数据结构》一书</p>
+<h3 id="Ch1-数据结构一些基本概念和术语"><a href="#Ch1-数据结构一些基本概念和术语" class="headerlink" title="Ch1 数据结构一些基本概念和术语"></a>Ch1 数据结构一些基本概念和术语</h3><p>1.1 基本概念</p>
 <ul>
 <li>数据</li>
 <li>数据元素：组成数据的、有一定意义的基本单位。通常作为整体被计算机处理。也被称为记录</li>
@@ -225,7 +289,20 @@
 <li>优点：查找复杂度O(1)；无需为表示表中元素间的逻辑关系增加额外的存储空间</li>
 <li>缺点：插入/删除复杂度O(n)；线性表长度变化较大时，难以确定存储空间的容量；造成存储空间的碎片</li>
 </ul>
-<p>由于顺序存储这样那样的问题，我们有了另外一种存储方法：<br>2) 链式存储</p>
+<p>由于顺序存储这样那样的问题，我们有了另外一种存储方法：<br>2) 链式存储<br>链式存储中，对每个数据元素来说，出了存储其本身的信息外，还要存储一个指示其直接后继（的存储位置）的信息。<br>数据域：存储数据元素信息的域<br>指针域：存储直接后继位置的域，指针域中存储的信息称作指针或链<br>结点：指针域和数据域组成的数据元素映像，称为结点</p>
+<p>n个结点链结成一个链表，即为线性表的链式存储结构，因为此链表的每个结点中只包含一个指针域，所以称为<b>单链表</b></p>
+<p>头指针：链表中第一个结点的存储位置称为头指针（是个指向第一个结点的指针），若链表有头结点，头指针则是指向头结点的指针。</p>
+<ul>
+<li>线性链表的最后一个结点指针为“空”。</li>
+<li>无论链表是否为空，头指针均不为空。头指针是链表的必要元素。</li>
+</ul>
+<p>头结点：在单链表的第一个结点前附设一个结点，称为头结点，里面的数据域可以不存储任何信息，指针域存储指向第一个结点的指针<br>(！注意这个指针不是头指针，头指针指向的头结点本身)。</p>
+<ul>
+<li>头结点不一定是链表必须要素</li>
+<li>头结点是为了操作的统一/方便设定的，这样对第一元素结点前插入结点和删除第一结点放在第一元素的结点之前，其数据域一般无意义。<br>参考：<a href="http://blog.csdn.net/zhenyusoso/article/details/6092843" target="_blank" rel="external">http://blog.csdn.net/zhenyusoso/article/details/6092843</a> 中图2</li>
+</ul>
+<p>空表：线性表为空表时，头结点的指针域为“空”。</p>
+<p>代码描述：p是指向线性表第i个元素的指针，则该结点ai的数据域可用p-&gt;data表示，p-&gt;data的值是一个数据元素，结点ai的指针域可用p-next来表示（指向第ai+1个元素的指针），如果p-&gt;data=ai，那么p-&gt;next-&gt;data=ai+1</p>
 
         </div>
     
@@ -263,7 +340,8 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[nums1.length+nums2.length];</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length &amp;&amp; j&lt;nums2.length)&#123;</div><div class="line">            <span class="keyword">if</span>(nums1[i]&lt;nums2[j])&#123;</div><div class="line">                array[k]=nums1[i];</div><div class="line">                k++;</div><div class="line">                i++;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                array[k]=nums2[j];</div><div class="line">                k++;</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length)&#123;</div><div class="line">            array[k]=nums1[i];</div><div class="line">            k++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(j&lt;nums2.length)&#123;</div><div class="line">            array[k]=nums2[j];</div><div class="line">            k++;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//compute median</span></div><div class="line">        <span class="keyword">if</span>(array.length%<span class="number">2</span> ==<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> array[(<span class="keyword">int</span>)(array.length/<span class="number">2</span>)];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> (array[(array.length/<span class="number">2</span>)]+array[(array.length/<span class="number">2</span>)-<span class="number">1</span>])/<span class="number">2.0</span>; <span class="comment">//！！！这里一定不能写/2，会自动变成int！！！</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h3 id="SOL2"><a href="#SOL2" class="headerlink" title="SOL2"></a>SOL2</h3><p>题目要求里面是需要log(m+n)</p>
-
+<p>log复杂度, 参考水中的鱼blog的思路, 使用二分法. 其实看到log复杂度应该能直接想到二分的思路.<br><del>脑死,好难,我再想想,思路想出来了竟然不会写我屮艸芔茻</del></p>
+<h3 id="我再想想"><a href="#我再想想" class="headerlink" title="我再想想!!!!"></a>我再想想!!!!</h3>
         </div>
     
 
@@ -512,6 +590,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2017/08/31/Longest-Palindromic-Substring/">Longest Palindromic Subst</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2017/08/21/数据结构笔记1/">数据结构笔记1</a>
             </li>
             
@@ -521,10 +603,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/">Longest Substring Without</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/20/Minimum-Time-Difference/">Minimum Time Difference</a>
             </li>
             
         </ul>
