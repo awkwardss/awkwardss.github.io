@@ -133,6 +133,42 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/09/03/ZigZag-Conversion/">
+                ZigZag Conversion
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-03</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="6-ZigZag-Conversion-zigzag模式转换"><a href="#6-ZigZag-Conversion-zigzag模式转换" class="headerlink" title="6. ZigZag Conversion zigzag模式转换"></a>6. ZigZag Conversion zigzag模式转换</h2><p>The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
+<p>P   A   H   N<br>A P L S I I G<br>Y   I   R<br>And then read line by line: “PAHNAPLSIIGYIR”<br>Write the code that will take a string and make this conversion given a number of rows:</p>
+<p>string convert(string text, int nRows);<br>convert(“PAYPALISHIRING”, 3) should return “PAHNAPLSIIGYIR”.</p>
+<h3 id="SOL"><a href="#SOL" class="headerlink" title="SOL"></a>SOL</h3><p>很容易能看出字符串的排列位置是以(2n-2)的间隔重复, 直接循环取值形成每行字符串即可.<br>一个小注意点在于对于每个循环内部两端对称的字符并不是完全的等差序列, 而是相对于每个循环首尾字符等差, 所以在这个基础上加上一些小判定和处理即可. 思路比较直接.<br>复杂度O(n).</p>
+<p>实际上实现的难点是各种+1-2….等的处理, 以及小心不要数组越界, 稍有不慎就会加错/越界orz导致整个结果出错.</p>
+<p>注意点:</p>
+<ul>
+<li>边界条件, 对于边界条件的思索和处理应该是第一步, 而不是等到submit/test返回error才想到忘记处理边界了.</li>
+<li>对于数组内部数字的运算, 想好再写, 不然复杂的处理很容易越界.</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">convert</span><span class="params">(String s, <span class="keyword">int</span> numRows)</span> </span>&#123;</div><div class="line">        <span class="comment">//别忘了第一件事处理边界！！</span></div><div class="line">        <span class="keyword">if</span> (s.length()&lt;=<span class="number">1</span> || numRows&lt;=<span class="number">1</span>) <span class="keyword">return</span> s;</div><div class="line">        String innerPart = <span class="string">""</span>;</div><div class="line">        String result = <span class="string">""</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;numRows; i++)&#123;<span class="comment">//处理</span></div><div class="line">            innerPart=<span class="string">""</span>;</div><div class="line">            <span class="keyword">int</span> j=<span class="number">0</span>;</div><div class="line">            <span class="keyword">while</span>(j&lt;(s.length())/(<span class="number">2</span>*numRows-<span class="number">2</span>))&#123;<span class="comment">//只处理可整除部分</span></div><div class="line">                innerPart+=s.charAt(i+(<span class="number">2</span>*numRows-<span class="number">2</span>)*j);</div><div class="line">                <span class="keyword">if</span> (i!=<span class="number">0</span> &amp;&amp; i!=numRows-<span class="number">1</span>) innerPart+=s.charAt((<span class="number">2</span>*numRows-<span class="number">2</span>)*(j+<span class="number">1</span>)-i);</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//处理余数</span></div><div class="line">            <span class="keyword">int</span> mod=s.length()%(<span class="number">2</span>*numRows-<span class="number">2</span>);</div><div class="line">            <span class="keyword">if</span> (mod&gt;i) &#123;</div><div class="line">                innerPart+=s.charAt((s.length()/(<span class="number">2</span>*numRows-<span class="number">2</span>))*(<span class="number">2</span>*numRows-<span class="number">2</span>)+i);</div><div class="line">                <span class="keyword">if</span>(i!=<span class="number">0</span> &amp;&amp; i!=numRows-<span class="number">1</span> &amp;&amp; ((<span class="number">2</span>*numRows-<span class="number">2</span>)-i) &lt;mod)&#123;</div><div class="line">                    innerPart+=s.charAt(((s.length()/(<span class="number">2</span>*numRows-<span class="number">2</span>))+<span class="number">1</span>)*(<span class="number">2</span>*numRows-<span class="number">2</span>)-i);</div><div class="line">                &#125;    </div><div class="line">            &#125;</div><div class="line">            result+=innerPart;</div><div class="line">            <span class="comment">//System.out.print(result);</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/08/31/Longest-Palindromic-Substring/">
                 Longest Palindromic Substring
             </a>
@@ -572,6 +608,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2017/09/03/ZigZag-Conversion/">ZigZag Conversion</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2017/08/31/Longest-Palindromic-Substring/">Longest Palindromic Subst</a>
             </li>
             
@@ -581,10 +621,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/08/21/Median-of-Two-Sorted-Arrays/">Median of Two Sorted Arra</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/">Longest Substring Without</a>
             </li>
             
         </ul>
