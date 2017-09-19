@@ -133,6 +133,118 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/09/19/Reverse-Integer/">
+                Reverse Integer
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h2 id="7-Reverse-Integer-整数取反"><a href="#7-Reverse-Integer-整数取反" class="headerlink" title="7. Reverse Integer 整数取反"></a>7. Reverse Integer 整数取反</h2><p>Reverse digits of an integer.</p>
+<p>Example1: x = 123, return 321<br>Example2: x = -123, return -321</p>
+<p>click to show spoilers.</p>
+<p>Have you thought about this?<br>Here are some good questions to ask before coding. Bonus points for you if you have already thought through this!</p>
+<p>If the integer’s last digit is 0, what should the output be? ie, cases such as 10, 100.</p>
+<p>Did you notice that the reversed integer might overflow? Assume the input is a 32-bit integer, then the reverse of 1000000003 overflows. How should you handle such cases?</p>
+<p>For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.</p>
+<p>Note:<br>The input is assumed to be a 32-bit signed integer. Your function should return 0 when the reversed integer overflows.</p>
+<h3 id="SOL"><a href="#SOL" class="headerlink" title="SOL"></a>SOL</h3><p>稍微处理一下即可, 详见代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//32 bit int max = 2,147,483,647</span></div><div class="line"><span class="comment">//直接存储过大的数会报错, 但是对int做加法不会直接报错，而是变成其他值</span></div><div class="line"><span class="comment">//无需对负数单独处理</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="comment">//boolean minus = false;</span></div><div class="line">        <span class="comment">//if (x&lt;0) minus = true;</span></div><div class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(x!=<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">int</span> tail = x%<span class="number">10</span>; </div><div class="line">            <span class="keyword">int</span> newResult = result*<span class="number">10</span>+tail;</div><div class="line">            <span class="keyword">if</span>((newResult-tail)/<span class="number">10</span>!=result) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            result = newResult;</div><div class="line">            x=x/<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/09/16/排序算法笔记2/">
+                排序算法笔记2
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-16</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <ol>
+<li>归并排序</li>
+</ol>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/09/14/排序算法笔记/">
+                排序算法笔记1
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-14</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>一些碎碎念<br>切实感到了自己体质的差劲, 家里人病倒了过去照顾了几天, 自己也被传染了, 一个月感冒发烧两次真的是破了自己这辈子的记录了. </p>
+<ol>
+<li>选择排序 Selection Sort</li>
+</ol>
+<p>思路: 从所有字符里找出最小的, 放到第一个位置, 继续对剩下的字符找出最小的, 放到第二个位置, 以此类推.</p>
+<p>数据移动: N次(最少), 运行时间和输入(eg.部分有序或部分相同)无关<br>比较: N2/2次, 复杂度n2</p>
+<p>实现思路: 为了方便实现, 程序实现往往和算法本身的思路会有一些区别.<br>在比较寻找最小的过程中, 用一个变量min来记录最小值的index, 随着每次比较(j和min)不断刷新min的index即可.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SelectionSort</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] a)</span></span>&#123;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;a.length; i++)&#123;</div><div class="line">            <span class="keyword">int</span> min = i;<span class="comment">//&lt;--!!!不是0!!!-L-</span></div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>; j&lt;a.length; j++)&#123;</div><div class="line">                <span class="keyword">if</span>(a[min]&gt;a[j])   min = j;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">//swap三板斧 a[i]&lt;-&gt;a[min]</span></div><div class="line">            <span class="keyword">int</span> temp = a[i]; a[i]=a[min]; a[min]=temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>插入排序 Insertion Sort<br>一张一张插到合适的位置, 和整理牌类似</li>
+</ol>
+<p>思路: 当前索引左边都是有序的, 但位置还不确定因为可能会插入新数字, 当索引到达最右端, 排序完成. </p>
+<p>运行时间和输入有关, 接近整理好的数组的排序时间会远小于杂乱的数组.<br>交换: ~N2/4次(平均), ~N2/2次(最差-完全倒序), 0次(最优)<br>比较: ~N2/4次(平均), ~N2/2次(最差-完全倒序), N-1次(最优) </p>
+<p>复杂度n2</p>
+<p>实现思路: 虽然左侧序列是不确定的, 但在每次循环都只是多加了1个或者不加而已, 还是基本确定的(加一个也只是一次往前交换而已), 所以索引只要从0开始+1+1就可以了. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertionSort</span><span class="params">(<span class="keyword">int</span>[] a)</span></span>&#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;a.length; i++)&#123;</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i; j&gt;<span class="number">0</span> &amp;&amp; a[j-<span class="number">1</span>]&gt;a[j]; j--)&#123;</div><div class="line">                <span class="comment">//swap</span></div><div class="line">                <span class="keyword">int</span> temp = a[j]; a[j]=a[j-<span class="number">1</span>]; a[j-<span class="number">1</span>]=temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>插入排序对于部分有序/小规模的数组非常高效.</p>
+<ol>
+<li>希尔排序 Shell Sort</li>
+</ol>
+<p>希尔排序的思想是使数组中任意间隔为h的元素都是有序的.</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/09/03/ZigZag-Conversion/">
                 ZigZag Conversion
             </a>
@@ -511,79 +623,24 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/07/24/Two-Sum/">
-                Two Sum
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-07-24</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h2 id="1-两数求和问题"><a href="#1-两数求和问题" class="headerlink" title="1. 两数求和问题"></a>1. 两数求和问题</h2><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.</p>
-<p>Example:<br>Given nums = [2, 7, 11, 15], target = 9,</p>
-<p>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
-<h3 id="SOL"><a href="#SOL" class="headerlink" title="SOL"></a>SOL</h3><p>先实现了第一种最简单的解法, 整体遍历, 复杂度O(n2)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</div><div class="line">        <span class="keyword">int</span>[] sol = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;nums.length; i++)&#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">1</span>; j&lt;nums.length;j++)&#123;</div><div class="line">                <span class="keyword">if</span> (target == nums[i] + nums[j])&#123;</div><div class="line">                    sol[<span class="number">0</span>] = i;</div><div class="line">                    sol[<span class="number">1</span>] = j;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    <span class="keyword">return</span> sol;</div><div class="line">    &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>剩下的hashmap方法晚上再研究一下</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/07/24/hello-world/">
-                Hello World
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-07-24</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
 
 
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="" href="/page/2/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -608,19 +665,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2017/09/19/Reverse-Integer/">Reverse Integer</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/16/排序算法笔记2/">排序算法笔记2</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/09/14/排序算法笔记/">排序算法笔记1</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2017/09/03/ZigZag-Conversion/">ZigZag Conversion</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/31/Longest-Palindromic-Substring/">Longest Palindromic Subst</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/21/数据结构笔记1/">数据结构笔记1</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/08/21/Median-of-Two-Sorted-Arrays/">Median of Two Sorted Arra</a>
             </li>
             
         </ul>

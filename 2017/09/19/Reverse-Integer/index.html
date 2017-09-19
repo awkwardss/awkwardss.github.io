@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="AWKWARD-SS复健站"/>
+        <meta property="og:title" content="Reverse Integer"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2017/7 - AWKWARD-SS复健站</title>
+    <title>Reverse Integer - AWKWARD-SS复健站</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -113,9 +113,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -123,122 +121,62 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">2017/7</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2017/08/31/Longest-Palindromic-Substring/">
-        <span class="archive-date">
-            Aug 2017
-        </span>
-        Longest Palindromic Substring
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/09/19/Reverse-Integer/">
+                Reverse Integer
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-09-19</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h2 id="7-Reverse-Integer-整数取反"><a href="#7-Reverse-Integer-整数取反" class="headerlink" title="7. Reverse Integer 整数取反"></a>7. Reverse Integer 整数取反</h2><p>Reverse digits of an integer.</p>
+<p>Example1: x = 123, return 321<br>Example2: x = -123, return -321</p>
+<p>click to show spoilers.</p>
+<p>Have you thought about this?<br>Here are some good questions to ask before coding. Bonus points for you if you have already thought through this!</p>
+<p>If the integer’s last digit is 0, what should the output be? ie, cases such as 10, 100.</p>
+<p>Did you notice that the reversed integer might overflow? Assume the input is a 32-bit integer, then the reverse of 1000000003 overflows. How should you handle such cases?</p>
+<p>For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.</p>
+<p>Note:<br>The input is assumed to be a 32-bit signed integer. Your function should return 0 when the reversed integer overflows.</p>
+<h3 id="SOL"><a href="#SOL" class="headerlink" title="SOL"></a>SOL</h3><p>稍微处理一下即可, 详见代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//32 bit int max = 2,147,483,647</span></div><div class="line"><span class="comment">//直接存储过大的数会报错, 但是对int做加法不会直接报错，而是变成其他值</span></div><div class="line"><span class="comment">//无需对负数单独处理</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">reverse</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</div><div class="line">        <span class="comment">//boolean minus = false;</span></div><div class="line">        <span class="comment">//if (x&lt;0) minus = true;</span></div><div class="line">        <span class="keyword">int</span> result=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(x!=<span class="number">0</span>)&#123;</div><div class="line">            <span class="keyword">int</span> tail = x%<span class="number">10</span>; </div><div class="line">            <span class="keyword">int</span> newResult = result*<span class="number">10</span>+tail;</div><div class="line">            <span class="keyword">if</span>((newResult-tail)/<span class="number">10</span>!=result) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">            result = newResult;</div><div class="line">            x=x/<span class="number">10</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> result;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/leetcode/">#leetcode</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2017/08/19/Add-Two-Numbers/">
-        <span class="archive-date">
-            Aug 2017
-        </span>
-        Add Two Numbers
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/08/20/Minimum-Time-Difference/">
-        <span class="archive-date">
-            Aug 2017
-        </span>
-        Minimum Time Difference
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/09/19/Reverse-Integer/">
-        <span class="archive-date">
-            Sep 2017
-        </span>
-        Reverse Integer
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/07/24/Two-Sum/">
-        <span class="archive-date">
-            Jul 2017
-        </span>
-        Two Sum
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/">
-        <span class="archive-date">
-            Aug 2017
-        </span>
-        Longest Substring Without Repeating Characters
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/08/21/Median-of-Two-Sorted-Arrays/">
-        <span class="archive-date">
-            Aug 2017
-        </span>
-        Median of Two Sorted Arrays
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/09/03/ZigZag-Conversion/">
-        <span class="archive-date">
-            Sep 2017
-        </span>
-        ZigZag Conversion
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/07/24/hello-world/">
-        <span class="archive-date">
-            Jul 2017
-        </span>
-        Hello World
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/09/14/排序算法笔记/">
-        <span class="archive-date">
-            Sep 2017
-        </span>
-        排序算法笔记1
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/09/16/排序算法笔记2/">
-        <span class="archive-date">
-            Sep 2017
-        </span>
-        排序算法笔记2
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/08/21/数据结构笔记1/">
-        <span class="archive-date">
-            Aug 2017
-        </span>
-        数据结构笔记1
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
 
