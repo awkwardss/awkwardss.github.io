@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构 笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="声明：大部分内容来自《大话数据结构》一书 Ch1 数据结构一些基本概念和术语1.1 基本概念  数据 数据元素：组成数据的、有一定意义的基本单位。通常作为整体被计算机处理。也被称为记录 数据项：数据元素可由多个数据项组成，数据项是数据不可分割的最小单位 数据对象：性质相同的数据元素的集合，是数据的子集。 数据结构：相互之间存在一种或多种特定关系的数据元素的集合。  关系： 数据_由多个..组成&amp;g">
+<meta name="keywords" content="数据结构 笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构笔记1">
+<meta property="og:url" content="http://yoursite.com/2017/08/21/数据结构笔记1/index.html">
+<meta property="og:site_name" content="AWKWARD-SS复健站">
+<meta property="og:description" content="声明：大部分内容来自《大话数据结构》一书 Ch1 数据结构一些基本概念和术语1.1 基本概念  数据 数据元素：组成数据的、有一定意义的基本单位。通常作为整体被计算机处理。也被称为记录 数据项：数据元素可由多个数据项组成，数据项是数据不可分割的最小单位 数据对象：性质相同的数据元素的集合，是数据的子集。 数据结构：相互之间存在一种或多种特定关系的数据元素的集合。  关系： 数据_由多个..组成&amp;g">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-08-29T03:11:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构笔记1">
+<meta name="twitter:description" content="声明：大部分内容来自《大话数据结构》一书 Ch1 数据结构一些基本概念和术语1.1 基本概念  数据 数据元素：组成数据的、有一定意义的基本单位。通常作为整体被计算机处理。也被称为记录 数据项：数据元素可由多个数据项组成，数据项是数据不可分割的最小单位 数据对象：性质相同的数据元素的集合，是数据的子集。 数据结构：相互之间存在一种或多种特定关系的数据元素的集合。  关系： 数据_由多个..组成&amp;g">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/21/数据结构笔记1/"/>
+
+
+
+
+
+  <title>数据结构笔记1 | AWKWARD-SS复健站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AWKWARD-SS复健站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">复健什么的，其实不存在的</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/21/数据结构笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AWKWARD-SS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AWKWARD-SS复健站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构笔记1</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T17:12:06+08:00">
+                2017-08-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/21/数据结构笔记1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/21/数据结构笔记1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>声明：大部分内容来自《大话数据结构》一书</p>
+<h3 id="Ch1-数据结构一些基本概念和术语"><a href="#Ch1-数据结构一些基本概念和术语" class="headerlink" title="Ch1 数据结构一些基本概念和术语"></a>Ch1 数据结构一些基本概念和术语</h3><p>1.1 基本概念</p>
+<ul>
+<li>数据</li>
+<li>数据元素：组成数据的、有一定意义的基本单位。通常作为整体被计算机处理。也被称为记录</li>
+<li>数据项：数据元素可由多个数据项组成，数据项是数据不可分割的最小单位</li>
+<li>数据对象：性质相同的数据元素的集合，是数据的子集。</li>
+<li>数据结构：相互之间存在一种或多种特定关系的<b>数据元素</b>的集合。</li>
+</ul>
+<p>关系：</p>
+<p>数据<strong>_由多个..组成</strong>&gt;数据对象<br>            ^|<br>性质相同的数据元素的集合||包含多个<br>            |v<br>            数据元素<strong>_</strong>&gt;数据项（最小单位）<br>eg：<br>生物<strong>——————————————</strong>&gt;禽类<br>              |<br>            |<br>            v<br>            鸡——————&gt;嘴/眼睛/….</p>
+<p>1.2 逻辑结构和物理结构</p>
+<ul>
+<li>逻辑结构：</li>
+</ul>
+<ol>
+<li>集合结构：结构中的数据元素出了同属于一个集合外，没有其他关系</li>
+<li>线性结构：一对一</li>
+<li>树结构：一对多</li>
+<li>图结构：多对多</li>
+</ol>
+<ul>
+<li>物理结构：</li>
+</ul>
+<ol>
+<li>顺序存储结构</li>
+<li>链式存储结构</li>
+</ol>
+<h3 id="Ch2-算法"><a href="#Ch2-算法" class="headerlink" title="Ch2 算法"></a>Ch2 算法</h3><ul>
+<li><p>函数的渐进增长：<br>两个函数h(n)和g(n)，如果存在一个n值使得n选值大于此n时h(n)总大于g(n)，那么我们称h(n)的渐进增长快于g(n)。</p>
+</li>
+<li><p>推导大O阶方法：</p>
+</li>
+</ul>
+<ol>
+<li>用常数1取代运行时间中的加法常数。（所以常数阶全都是O（1）而非O（某个常数））</li>
+<li>在修改后的运行次数函数中，只保留最高阶项。</li>
+<li>若最高阶项存在且不是1， 则去除与这个项相乘的常数。</li>
+</ol>
+<ul>
+<li>常见的时间复杂度排序：<br>O(1)&lt;O(logn)&lt;O(n)&lt;O(nlogn)&lt;O(n2)&lt;O(n3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)<br>左3：比较优秀；中2：一般：右：差</li>
+</ul>
+<h3 id="Ch3-线性表"><a href="#Ch3-线性表" class="headerlink" title="Ch3 线性表"></a>Ch3 线性表</h3><blockquote>
+<p>零个或多个相同类型的数据元素的有限序列。<br>3.1 特点：</p>
+<ol>
+<li>a1~an-1有且只有一个后继元素，a2~an有且只有一个前驱元素</li>
+<li>表内元素个数有限</li>
+<li>表内元素从1开始标识（实现时使用的数组本身则是从0计数）</li>
+</ol>
+<ul>
+<li>n=0时称为空表</li>
+<li>在较复杂的线性表中，一个数据元素可由多个数据项组成（eg：学号+姓名+性别+出生年月……）</li>
+</ul>
+</blockquote>
+<p>3.2 存储结构<br>1) 顺序存储<br> 指用一段地址连续的存储单元依次存储线性表的数据元素。</p>
+<ul>
+<li>可用一维数组类实现顺序存储结构。</li>
+<li>优点：查找复杂度O(1)；无需为表示表中元素间的逻辑关系增加额外的存储空间</li>
+<li>缺点：插入/删除复杂度O(n)；线性表长度变化较大时，难以确定存储空间的容量；造成存储空间的碎片</li>
+</ul>
+<p>由于顺序存储这样那样的问题，我们有了另外一种存储方法：<br>2) 链式存储<br>链式存储中，对每个数据元素来说，出了存储其本身的信息外，还要存储一个指示其直接后继（的存储位置）的信息。<br>数据域：存储数据元素信息的域<br>指针域：存储直接后继位置的域，指针域中存储的信息称作指针或链<br>结点：指针域和数据域组成的数据元素映像，称为结点</p>
+<p>n个结点链结成一个链表，即为线性表的链式存储结构，因为此链表的每个结点中只包含一个指针域，所以称为<b>单链表</b></p>
+<p>头指针：链表中第一个结点的存储位置称为头指针（是个指向第一个结点的指针），若链表有头结点，头指针则是指向头结点的指针。</p>
+<ul>
+<li>线性链表的最后一个结点指针为“空”。</li>
+<li>无论链表是否为空，头指针均不为空。头指针是链表的必要元素。</li>
+</ul>
+<p>头结点：在单链表的第一个结点前附设一个结点，称为头结点，里面的数据域可以不存储任何信息，指针域存储指向第一个结点的指针<br>(！注意这个指针不是头指针，头指针指向的头结点本身)。</p>
+<ul>
+<li>头结点不一定是链表必须要素</li>
+<li>头结点是为了操作的统一/方便设定的，这样对第一元素结点前插入结点和删除第一结点放在第一元素的结点之前，其数据域一般无意义。<br>参考：<a href="http://blog.csdn.net/zhenyusoso/article/details/6092843" target="_blank" rel="external">http://blog.csdn.net/zhenyusoso/article/details/6092843</a> 中图2</li>
+</ul>
+<p>空表：线性表为空表时，头结点的指针域为“空”。</p>
+<p>代码描述：p是指向线性表第i个元素的指针，则该结点ai的数据域可用p-&gt;data表示，p-&gt;data的值是一个数据元素，结点ai的指针域可用p-next来表示（指向第ai+1个元素的指针），如果p-&gt;data=ai，那么p-&gt;next-&gt;data=ai+1</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构-笔记/" rel="tag"># 数据结构 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/Median-of-Two-Sorted-Arrays/" rel="next" title="Median of Two Sorted Arrays">
+                <i class="fa fa-chevron-left"></i> Median of Two Sorted Arrays
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/31/Longest-Palindromic-Substring/" rel="prev" title="Longest Palindromic Substring">
+                Longest Palindromic Substring <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="AWKWARD-SS" />
+            
+              <p class="site-author-name" itemprop="name">AWKWARD-SS</p>
+              <p class="site-description motion-element" itemprop="description">一个衰弱的自我怀疑患者的复健记录站点</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/awkwardss" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chunfengdouruaimi@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/awkwarddssilence" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ch1-数据结构一些基本概念和术语"><span class="nav-number">1.</span> <span class="nav-text">Ch1 数据结构一些基本概念和术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ch2-算法"><span class="nav-number">2.</span> <span class="nav-text">Ch2 算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ch3-线性表"><span class="nav-number">3.</span> <span class="nav-text">Ch3 线性表</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AWKWARD-SS</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/08/21/数据结构笔记1/';
+          this.page.identifier = '2017/08/21/数据结构笔记1/';
+          this.page.title = '数据结构笔记1';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
