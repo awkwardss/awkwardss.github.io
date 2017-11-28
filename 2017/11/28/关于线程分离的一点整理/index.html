@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,线程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Event dispatch thread EDT事件指派线程  !!!注意：线程分离(thread detached)和事件指派线程(event dispatch thread)并不是一个东西，线程分离是一个更为广域的概念，应用的场景也比事件指派要广；  线程的分离/可结合的 detached/joinable线程的分离状态决定线程的终止模式。分离：运行结束，线程即终止；可结合的：在pthrea">
+<meta name="keywords" content="Java,线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于线程分离的一点整理">
+<meta property="og:url" content="http://yoursite.com/2017/11/28/关于线程分离的一点整理/index.html">
+<meta property="og:site_name" content="AWKWARD-SS复健站">
+<meta property="og:description" content="Event dispatch thread EDT事件指派线程  !!!注意：线程分离(thread detached)和事件指派线程(event dispatch thread)并不是一个东西，线程分离是一个更为广域的概念，应用的场景也比事件指派要广；  线程的分离/可结合的 detached/joinable线程的分离状态决定线程的终止模式。分离：运行结束，线程即终止；可结合的：在pthrea">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-28T08:40:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于线程分离的一点整理">
+<meta name="twitter:description" content="Event dispatch thread EDT事件指派线程  !!!注意：线程分离(thread detached)和事件指派线程(event dispatch thread)并不是一个东西，线程分离是一个更为广域的概念，应用的场景也比事件指派要广；  线程的分离/可结合的 detached/joinable线程的分离状态决定线程的终止模式。分离：运行结束，线程即终止；可结合的：在pthrea">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/28/关于线程分离的一点整理/"/>
+
+
+
+
+
+  <title>关于线程分离的一点整理 | AWKWARD-SS复健站</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">AWKWARD-SS复健站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">复健什么的，其实不存在的</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/28/关于线程分离的一点整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AWKWARD-SS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AWKWARD-SS复健站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于线程分离的一点整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-28T16:34:00+08:00">
+                2017-11-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/28/关于线程分离的一点整理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/28/关于线程分离的一点整理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Event-dispatch-thread-EDT事件指派线程"><a href="#Event-dispatch-thread-EDT事件指派线程" class="headerlink" title="Event dispatch thread EDT事件指派线程"></a>Event dispatch thread EDT事件指派线程</h3><hr>
+<ul>
+<li>!!!注意：线程分离(thread detached)和事件指派线程(event dispatch thread)并不是一个东西，线程分离是一个更为广域的概念，应用的场景也比事件指派要广；</li>
+</ul>
+<h5 id="线程的分离-可结合的-detached-joinable"><a href="#线程的分离-可结合的-detached-joinable" class="headerlink" title="线程的分离/可结合的 detached/joinable"></a>线程的分离/可结合的 detached/joinable</h5><p>线程的分离状态决定线程的终止模式。<br>分离：运行结束，线程即终止；<br>可结合的：在pthread_join()获得结合的另一个线程的中止状态才能释放此线程的资源。<br>pthread_join():暂停（阻塞）此线程（即自身）的运行，直到目标线程终止。</p>
+<h5 id="线程分离的原因："><a href="#线程分离的原因：" class="headerlink" title="线程分离的原因："></a>线程分离的原因：</h5><p>串行执行任务（单线程）时，当遇到耗时较长的任务，线程将等待很长时间（进行任务），此时线程类似于进入阻塞状态，特别是对于UI操作，用户在这段时间无法对UI进行任何操作，故为了避免这种情况，线程中引入了线程并发（也就是将主线程和子线程分离）。</p>
+<hr>
+<h5 id="Java中的EDT线程"><a href="#Java中的EDT线程" class="headerlink" title="Java中的EDT线程"></a>Java中的EDT线程</h5><p><a href="http://www.oracle.com/technetwork/articles/javase/swingworker-137249.html" target="_blank" rel="external">http://www.oracle.com/technetwork/articles/javase/swingworker-137249.html</a><br>Java的线程大致可分为三类：</p>
+<ol>
+<li>起始线程（initial thread） </li>
+<li>EDT </li>
+<li>多个工作线程（work threads）</li>
+</ol>
+<p>main运行产生了起始线程，对于有GUI的java程序而言，initial thread在产生GUI后基本结束了自己的使命。<br>Swing应用中包含一个单独的EDT用于UI相关的操作。EDT线程绘制/更新GUI组件，并对用户交互做出反馈（通过event handler）。Java规定用户不能直接对（线程不安全）Swing部件直接进行调用，而是必须要通过EDT和EDT对应的event queue对Swing部件进行调用。</p>
+<h5 id="在Java中对于线程分离的规定："><a href="#在Java中对于线程分离的规定：" class="headerlink" title="在Java中对于线程分离的规定："></a>在Java中对于线程分离的规定：</h5><p>在java中，特别是对于UI的Swing线程这种实际上是单线程处理的线程而言，涉及到UI相关的操作，将耗时较长的线程单独分离出去是非常必要的，并且是Java强制规定的。</p>
+<p>Java的规定当中，如果Swing部件的方法被标明”thread safe”，那么这个线程可以从其它线程中被调用，但是其他所有Swing部件的方法都必须被放在Event dispatch thread中被调用，而非从主线程或其他工作线程中被调用。</p>
+<p>总结起来一共2点：</p>
+<ol>
+<li>耗时的任务不应在EDT中被运行</li>
+<li>Swing部件应在并且只在EDT被获取（即GUI相关的任务活动）。<br><a href="https://docs.oracle.com/javase/6/docs/api/javax/swing/SwingWorker.html" target="_blank" rel="external">https://docs.oracle.com/javase/6/docs/api/javax/swing/SwingWorker.html</a></li>
+</ol>
+<hr>
+<h5 id="Java-GUI中与EDT交互的方法："><a href="#Java-GUI中与EDT交互的方法：" class="headerlink" title="Java GUI中与EDT交互的方法："></a>Java GUI中与EDT交互的方法：</h5><p>常用的方法有使用event-handling 方法，比如ActionListener.actionPerformed，或者可以使用invokeLater或者invokeAndWait方法。后两者的区别是later中主线程不会等待子线程而是继续运行，wait则会让主线程等待子线程运行完后才继续运行。</p>
+<p>不过，由于Swing本身运行仍是串行运行在EDT上的，所以分离出的线程会进入一个线程队列中，等到线程拿到运行权，分离的线程才会运行。所以这就产生的一个新的问题发生点，分离出的子线程可能会在主线程运行很久以后才能得到运行。</p>
+<h5 id="多线程分离返回值或进行对UI操作的问题："><a href="#多线程分离返回值或进行对UI操作的问题：" class="headerlink" title="多线程分离返回值或进行对UI操作的问题："></a>多线程分离返回值或进行对UI操作的问题：</h5><p>分离线程后，如果遇到主线程需要子线程的返回值再操作，或者需要子线程结束刷新UI的操作时，子线程的操作可能不能及时传达到主线程/UI中。对于这种情况，可以采取一些方法来处理：1）循环判断：主线程循环判断子线程是否完成操作，但这种方法占用很多内存，而且最坏的情况是由于主线程的循环判断子线程无法拿到运行权；2）回调：子线程调用主线程中的回调方法，从而进行继续的赋值或渲染操作；3）使用自带返回值的Callable接口，向主线程返回值；4）对于GUI相关操作，可以使用invokeAndWait方法；5）使用SwingWorker。</p>
+<h5 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h5><p>EventQueue类:</p>
+<ol>
+<li>isDispatchThread</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">isDispatchThread</span><span class="params">()</span></span></div></pre></td></tr></table></figure>
+<p>如果正在调用的线程是当前 AWT EventQueue 的指派线程，则返回 true。使用此调用确保给定的任务正在当前 AWT EventDispatchThread 上执行（或没有执行）。<br>返回：<br>如果给定的任务正在当前 AWT EventQueue 的指派线程上运行，则返回 true。</p>
+<ol>
+<li>invokeAndWait</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeAndWait</span><span class="params">(Runnable runnable)</span></span></div><div class="line">                          <span class="keyword">throws</span> InterruptedException,</div><div class="line">                                 InvocationTargetException</div></pre></td></tr></table></figure>
+<p>导致 runnable 的 run 方法在 the system EventQueue 的指派线程中被调用。在所有挂起事件被处理后才发生。在这发生之前调用被阻塞。如果从事件指派线程进行调用，则该方法将抛出 Error。<br>参数：<br>runnable - Runnable 对象，其 run 方法应该在 EventQueue 上同步执行<br>抛出：<br>InterruptedException - 如果任何线程中断了该线程<br>InvocationTargetException - 如果运行 runnable 时抛出一个 throwable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Causes &lt;code&gt;runnable&lt;/code&gt; to have its &lt;code&gt;run&lt;/code&gt;</div><div class="line">     * method called in the &#123;<span class="doctag">@link</span> #isDispatchThread dispatch thread&#125; of</div><div class="line">     * &#123;<span class="doctag">@link</span> Toolkit#getSystemEventQueue the system EventQueue&#125;.</div><div class="line">     * This will happen after all pending events are processed.</div><div class="line">     * The call blocks until this has happened.  This method</div><div class="line">     * will throw an Error if called from the</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeAndWait</span><span class="params">(Runnable runnable)</span></span></div><div class="line">        <span class="keyword">throws</span> InterruptedException, InvocationTargetException</div><div class="line">    &#123;</div><div class="line">        invokeAndWait(Toolkit.getDefaultToolkit(), runnable);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeAndWait</span><span class="params">(Object source, Runnable runnable)</span></span></div><div class="line">        <span class="keyword">throws</span> InterruptedException, InvocationTargetException</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">if</span> (EventQueue.isDispatchThread()) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Cannot call invokeAndWait from the event dispatcher thread"</span>);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="class"><span class="keyword">class</span> <span class="title">AWTInvocationLock</span> </span>&#123;&#125;</div><div class="line">        Object lock = <span class="keyword">new</span> AWTInvocationLock();<span class="comment">//加了一个AWT invocation锁</span></div><div class="line"></div><div class="line">        InvocationEvent event =</div><div class="line">            <span class="keyword">new</span> InvocationEvent(source, runnable, lock, <span class="keyword">true</span>);</div><div class="line"></div><div class="line">        <span class="keyword">synchronized</span> (lock) &#123;</div><div class="line">            Toolkit.getEventQueue().postEvent(event);</div><div class="line">            <span class="keyword">while</span> (!event.isDispatched()) &#123;</div><div class="line">                lock.wait();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        Throwable eventThrowable = event.getThrowable();</div><div class="line">        <span class="keyword">if</span> (eventThrowable != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvocationTargetException(eventThrowable);</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>invokelater</li>
+</ol>
+<p>public static void invokeLater(Runnable runnable)<br>导致 runnable 的 run 方法在 the system EventQueue 的指派线程中被调用。<br>参数：<br>runnable - Runnable 对象，其 run 方法应该在 EventQueue 上同步执行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Causes &lt;code&gt;runnable&lt;/code&gt; to have its &lt;code&gt;run&lt;/code&gt;</div><div class="line">     * method called in the &#123;<span class="doctag">@link</span> #isDispatchThread dispatch thread&#125; of</div><div class="line">     * &#123;<span class="doctag">@link</span> Toolkit#getSystemEventQueue the system EventQueue&#125;.</div><div class="line">     * This will happen after all pending events are processed.</div><div class="line">     * 会在其他EDT中等待的进程结束运行后再运行</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">invokeLater</span><span class="params">(Runnable runnable)</span> </span>&#123;</div><div class="line">        Toolkit.getEventQueue().postEvent(</div><div class="line">            <span class="keyword">new</span> InvocationEvent(Toolkit.getDefaultToolkit(), runnable));</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>getEventQueue()获取了应用的event queue实例，<br>postEvent(): 令eventQueue中的线程呈现1.1关系。即每个队列中的线程都有着不同的ID和事件源（event source）（把runnable的事件放入EventQueue）<br>getDefaultToolkit(): 获取默认工具包<br>（关于java toolkit： <a href="http://blog.csdn.net/linhu007/article/details/18505423）" target="_blank" rel="external">http://blog.csdn.net/linhu007/article/details/18505423）</a><br>//InvocationEvent():  创建一个源为DefaultToolkit的invacationEvent, 此源会在被指派时执行runnable的run方法（即执行invokelater中的被分离的子线程）</p>
+<p><a href="http://www.blogjava.net/vincent/archive/2008/08/24/223933.html" target="_blank" rel="external">http://www.blogjava.net/vincent/archive/2008/08/24/223933.html</a><br><a href="http://www.360doc.com/content/12/1022/01/820209_242886827.shtml" target="_blank" rel="external">http://www.360doc.com/content/12/1022/01/820209_242886827.shtml</a><br><a href="http://www.importnew.com/15761.html" target="_blank" rel="external">http://www.importnew.com/15761.html</a></p>
+<p>EDT(事件派发线程) 此线程会调用事件队列（event queue）依次进行事件处理。InvokeLater和invokeAndWait都会把参数中的runnable事件放入事件队列尾，等待EDT派发。二者的区别是Wait会在完成事件后才返回（实现机制是给线程加锁），Later则是把事件放入就直接返回。</p>
+<h5 id="SwingWalker"><a href="#SwingWalker" class="headerlink" title="SwingWalker"></a>SwingWalker</h5><p><a href="https://docs.oracle.com/javase/6/docs/api/javax/swing/SwingWorker.html" target="_blank" rel="external">https://docs.oracle.com/javase/6/docs/api/javax/swing/SwingWorker.html</a><br><a href="http://www.oracle.com/technetwork/articles/javase/swingworker-137249.html" target="_blank" rel="external">http://www.oracle.com/technetwork/articles/javase/swingworker-137249.html</a><br>SwingWalker的出现替代了前两个方法的工作，SwingWorker同样是创建了新的子线程，使用SwingWorker的doInBackground方法，把耗时的任务放到方法中，在方法完成后，SwingWorkder调用EDT中的done()方法，可用于返回结果值。</p>
+<p>SwingWorker适用于需要在后台线程中执行长时间的运算工作时，对于运算完成时对UI的更新通知或者在运算过程中的更新。为了描述后台线程执行的具体工作，在继承抽象类SwingWorker的子类一定要实现doInBackground()方法。</p>
+<p>在SwingWorker的生命循环中涉及到3个线程：</p>
+<ol>
+<li>当前线程（current thread）:<br> execute()让SwingWorker开始运行工作在workder thread上; get()可以让current thread等待SwingWorker完成任务之后再继续进行；一般来说，current thread就是EDT本身。</li>
+<li>工作线程（worker thread）：<br>doBackGround()；使用firePropertyChange and getPropertyChangeSupport() methods. By default there are two bound properties available: state and progress.</li>
+<li>EDT：<br>SwingWorkder触发done()并通知所有在此线程上的PropertyChangeListeners。</li>
+</ol>
+<p>Before the doInBackground method is invoked on a worker thread, SwingWorker notifies any PropertyChangeListeners about the state property change to StateValue.STARTED. After the doInBackground method is finished the done method is executed. Then SwingWorker notifies any PropertyChangeListeners about the state property change to StateValue.DONE.<br>在SwingWorker开始和结束工作的时候，都会向Listeners发送通知。<br>SwingWorker is only designed to be executed once. Executing a SwingWorker more than once will not result in invoking the doInBackground method twice.<br>SwingWorker只能被运行一次。<br>SwingWorker实现了Runnable借口，所以SwingWorker可以被提交到Executor中运行。</p>
+<h6 id="关于Executor-待更新"><a href="#关于Executor-待更新" class="headerlink" title="关于Executor (待更新)"></a>关于Executor (待更新)</h6><p>顺便整理一个好用的在线markdown编辑器：<a href="https://pandao.github.io/editor.md/" target="_blank" rel="external">https://pandao.github.io/editor.md/</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+            <a href="/tags/线程/" rel="tag"># 线程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/28/关系数据库中的范式/" rel="next" title="关系数据库中的范式">
+                <i class="fa fa-chevron-left"></i> 关系数据库中的范式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+  
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="AWKWARD-SS" />
+            
+              <p class="site-author-name" itemprop="name">AWKWARD-SS</p>
+              <p class="site-description motion-element" itemprop="description">一个衰弱的自我怀疑患者的复健记录站点</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/awkwardss" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:chunfengdouruaimi@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/awkwarddssilence" target="_blank" title="Weibo">
+                    
+                      <i class="fa fa-fw fa-weibo"></i>Weibo</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Event-dispatch-thread-EDT事件指派线程"><span class="nav-number">1.</span> <span class="nav-text">Event dispatch thread EDT事件指派线程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#线程的分离-可结合的-detached-joinable"><span class="nav-number">1.0.1.</span> <span class="nav-text">线程的分离/可结合的 detached/joinable</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#线程分离的原因："><span class="nav-number">1.0.2.</span> <span class="nav-text">线程分离的原因：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java中的EDT线程"><span class="nav-number">1.0.3.</span> <span class="nav-text">Java中的EDT线程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在Java中对于线程分离的规定："><span class="nav-number">1.0.4.</span> <span class="nav-text">在Java中对于线程分离的规定：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Java-GUI中与EDT交互的方法："><span class="nav-number">1.0.5.</span> <span class="nav-text">Java GUI中与EDT交互的方法：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多线程分离返回值或进行对UI操作的问题："><span class="nav-number">1.0.6.</span> <span class="nav-text">多线程分离返回值或进行对UI操作的问题：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#源码分析"><span class="nav-number">1.0.7.</span> <span class="nav-text">源码分析</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SwingWalker"><span class="nav-number">1.0.8.</span> <span class="nav-text">SwingWalker</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#关于Executor-待更新"><span class="nav-number">1.0.8.1.</span> <span class="nav-text">关于Executor (待更新)</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">AWKWARD-SS</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2017/11/28/关于线程分离的一点整理/';
+          this.page.identifier = '2017/11/28/关于线程分离的一点整理/';
+          this.page.title = '关于线程分离的一点整理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
