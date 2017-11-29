@@ -540,7 +540,10 @@
 <ul>
 <li>α → β is trivial (i.e., β ∈ α)</li>
 <li>α is a superkey for R</li>
-<li>Each attribute A in β – α is contained in a candidate key for R. (A-B means union belongs to A but not to B)<br>(NOTE: each attribute may be in a different cand. key)<h5 id="4-BCNF"><a href="#4-BCNF" class="headerlink" title="4. BCNF"></a>4. BCNF</h5>条件1: 满足2NF<br>条件3: 每个属性(含主属性)都不传递依赖于主键<br>非主键传递依赖于主键举例: R{A,B,C}, A为主键, 存在A-&gt;B, B-&gt;C, 此时非主键C传递依赖于主键A<br>A relation schema R is in BCNF with respect to a set F of functional dependencies if for all functional dependencies in F+ of the form (α → β) where α ⊆ R and β ⊆ R, at least one of the following holds:</li>
+<li>Each attribute A in β – α is contained in a candidate key for R. (A-B means union belongs to A but not to B). (NOTE: each attribute may be in a different cand. key)</li>
+</ul>
+<h5 id="4-BCNF"><a href="#4-BCNF" class="headerlink" title="4. BCNF"></a>4. BCNF</h5><p>条件1: 满足2NF<br>条件3: 每个属性(含主属性)都不传递依赖于主键<br>非主键传递依赖于主键举例: R{A,B,C}, A为主键, 存在A-&gt;B, B-&gt;C, 此时非主键C传递依赖于主键A<br>A relation schema R is in BCNF with respect to a set F of functional dependencies if for all functional dependencies in F+ of the form (α → β) where α ⊆ R and β ⊆ R, at least one of the following holds:</p>
+<ul>
 <li>α → β is trivial (i.e., β ⊆ α)</li>
 <li>α is a superkey for R<br>BCNF的限制要<del>低于</del><strong>高于</strong>3NF. BCNF一定是3NF</li>
 </ul>
