@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="AWKWARD-SS复健站">
 <meta property="og:description" content="准备面试,整理一下范式相关部分NF定义参考于 https://www.zhihu.com/question/24696366/answer/29189700 &amp;lt;-这个答案中对于2NF/3NF定义中的码我认为应该是主码而非码(候选码), 其他的表述还是可以参考的.英文定义部分参考的数据库课上的课件 各种NF:1. 1NFDomain is atomic,不可再分A relational sch">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-29T02:35:51.000Z">
+<meta property="og:updated_time" content="2017-11-29T02:36:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关系数据库中的范式">
 <meta name="twitter:description" content="准备面试,整理一下范式相关部分NF定义参考于 https://www.zhihu.com/question/24696366/answer/29189700 &amp;lt;-这个答案中对于2NF/3NF定义中的码我认为应该是主码而非码(候选码), 其他的表述还是可以参考的.英文定义部分参考的数据库课上的课件 各种NF:1. 1NFDomain is atomic,不可再分A relational sch">
@@ -369,11 +369,10 @@
 <h4 id="各种键"><a href="#各种键" class="headerlink" title="各种键"></a>各种键</h4><h5 id="Key："><a href="#Key：" class="headerlink" title="Key："></a>Key：</h5><p>关系中的某个属性或者某几个属性的组合，用于区分每个元组(tuple)(每一行)</p>
 <h5 id="Super-key"><a href="#Super-key" class="headerlink" title="Super key:"></a>Super key:</h5><p>超键(super key): 在关系中能唯一标识元组的属性集称为关系模式的超键<br>K is a superkey for relation schema R if and only if K → R<br>超键中可以包含非候选键.</p>
 <h5 id="Candidate-key"><a href="#Candidate-key" class="headerlink" title="Candidate key:"></a>Candidate key:</h5><p>K is a candidate key for R if and only if</p>
-<pre><code>- K → R, and
-- for no α ⊂ K, α → R
-</code></pre><p>候选键(candidate key): 不含有多余属性的超键称为候选键, 即实现了候选键之外的其余属性对于候选键的完全依赖.<br>候选键可能有多个, 一个候选键可能包含一个或多个属性.</p>
-<h5 id="Primary-key"><a href="#Primary-key" class="headerlink" title="Primary key:"></a>Primary key:</h5><p>主键(primary key):用户选作元组标识的一个候选键作为程序主键<br>主键只有一个, 主键可能包含一个或多个属性.</p>
-<h5 id="Foreign-key"><a href="#Foreign-key" class="headerlink" title="Foreign key:"></a>Foreign key:</h5><p>外键(foreign key): 如果关系模式R1中的某属性集不是R1的主键，而是另一个关系R2的主键则该属性集是关系模式R1的外键。</p>
+<ul>
+<li>K → R, and</li>
+<li>for no α ⊂ K, α → R<br>候选键(candidate key): 不含有多余属性的超键称为候选键, 即实现了候选键之外的其余属性对于候选键的完全依赖.<br>候选键可能有多个, 一个候选键可能包含一个或多个属性.<h5 id="Primary-key"><a href="#Primary-key" class="headerlink" title="Primary key:"></a>Primary key:</h5>主键(primary key):用户选作元组标识的一个候选键作为程序主键<br>主键只有一个, 主键可能包含一个或多个属性.<h5 id="Foreign-key"><a href="#Foreign-key" class="headerlink" title="Foreign key:"></a>Foreign key:</h5>外键(foreign key): 如果关系模式R1中的某属性集不是R1的主键，而是另一个关系R2的主键则该属性集是关系模式R1的外键。</li>
+</ul>
 
       
     </div>
