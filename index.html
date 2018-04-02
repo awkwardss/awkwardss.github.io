@@ -267,6 +267,296 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://awkwardss.github.io/2018/04/02/关于多态/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AWKWARD-SS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AWKWARD-SS复健站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/02/关于多态/" itemprop="url">关于多态</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T13:09:10+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/02/关于多态/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/04/02/关于多态/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我发现我还是没搞清楚多态这个东西, 今天正好有时间研究一下.</p>
+<p><del>好渴我没找到哪里能接水好渴啊啊啊啊啊</del><br><del>原来超类就是父类吗我勒个去</del></p>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>首先是继承,继承在概念上很好理解. 这篇文章(<a href="http://www.cnblogs.com/chenssy/p/3354884.html" target="_blank" rel="external">http://www.cnblogs.com/chenssy/p/3354884.html</a>) 中提到了关于继承的三个注意点:</p>
+<ol>
+<li>构造器<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">对于构造器而言，它只能够被调用，而不能被继承。 调用父类的构造方法我们使用super()即可。</div><div class="line">子类会默认调用父类的构造器，但如果没有默认的父类构造器，子类必须要显示的指定父类的构造器，而且必须是在子类构造器中做的第一件事(第一行代码)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这个主要是讲了子类怎么调用父类的构造器</p>
+<p>2 . protected: 可被1)此类的子类; 2)位于同一包的子类 访问.<br>private: 可被1)此类 访问</p>
+<p>附上一个方便分类的图表(<a href="https://stackoverflow.com/questions/215497/in-java-difference-between-package-private-public-protected-and-private" target="_blank" rel="external">https://stackoverflow.com/questions/215497/in-java-difference-between-package-private-public-protected-and-private</a>)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">            | Class | Package | Subclass | Subclass | World</div><div class="line">            |       |         |(same pkg)|(diff pkg)| </div><div class="line">————————————+———————+—————————+——————————+——————————+————————</div><div class="line">public      |   +   |    +    |    +     |     +    |   +   </div><div class="line">————————————+———————+—————————+——————————+——————————+————————</div><div class="line">protected   |   +   |    +    |    +     |     +    |       </div><div class="line">————————————+———————+—————————+——————————+——————————+————————</div><div class="line">no modifier |   +   |    +    |    +     |          |  </div><div class="line">————————————+———————+—————————+——————————+——————————+————————</div><div class="line">private     |   +   |         |          |          |    </div><div class="line"></div><div class="line">+: accessible</div><div class="line">blank: not accessible</div></pre></td></tr></table></figure></p>
+<p>3 . 向上转型<br>向上继承是把子类放入原本是父类格式的参数/变量来用</p>
+<p>这篇文章还说明了继承的缺陷:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1、父类变，子类就必须变。</div><div class="line">2、继承破坏了封装，对于父类而言，它的实现细节对与子类来说都是透明的。</div><div class="line">3、继承是一种强耦合关系。     </div><div class="line">所以说当我们使用继承的时候，我们需要确信使用继承确实是有效可行的办法。</div><div class="line">那么到底要不要使用继承呢？《Think in java》中提供了解决办法：问一问自己是否需要从子类向父类进行向上转型。如果必须向上转型，则继承是必要的，但是如果不需要，则应当好好考虑自己是否需要继承。</div></pre></td></tr></table></figure></p>
+<p>-</p>
+<ul>
+<li>耦合的定义:<blockquote>
+<p>耦合性（英语：Coupling，dependency，或称耦合力或耦合度）是一种软件度量，是指一程序中，模块及模块之间信息或参数依赖的程度。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">多态就是指程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，即一个引用变量倒底会指向哪个类的实例对象，该引用变量发出的方法调用到底是哪个类中实现的方法，必须在由程序运行期间才能决定。因为在程序运行时才确定具体的类，这样，不用修改源程序代码，就可以让引用变量绑定到各种不同的类实现上，从而导致该引用调用的具体方法随之改变，即不修改程序代码就可以改变程序运行时所绑定的具体代码，让程序可以选择多个运行状态，这就是多态性。</div></pre></td></tr></table></figure>
+<p>重载(overload)和重写(override)<br>重载: 方法名字相同, 参数不同, 返回值可同/可不同.<br>重写: 返回值/参数不变, 内容重写.</p>
+<p>2.1 多态的实现条件</p>
+<blockquote>
+<p>Java实现多态有三个必要条件：继承、重写、向上转型。<br>继承：在多态中必须存在有继承关系的子类和父类。<br>重写：子类对父类中某些方法进行重新定义，在调用这些方法时就会调用子类的方法。<br>向上转型：在多态中需要将子类的引用赋给父类对象，只有这样该引用才能够具备技能调用父类的方法和子类的方法。</p>
+<p>对于Java而言，它多态的实现机制遵循一个原则：当超类对象引用变量引用子类对象时，被引用对象的类型而不是引用变量的类型决定了调用谁的成员方法，但是这个被调用的方法必须是在超类中定义过的，也就是说被子类覆盖的方法。</p>
+</blockquote>
+<p>2.2 多态的实现形式<br>1) 基于继承<br>2) 基于接口<br>这里又涉及到了<strong>接口</strong>这个小妖精</p>
+<p>-L= 有点累 一会再写</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://awkwardss.github.io/2017/11/30/xqw爬虫/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="AWKWARD-SS">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="AWKWARD-SS复健站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/30/xqw爬虫/" itemprop="url">xqw爬虫</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T09:37:35+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/30/xqw爬虫/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/11/30/xqw爬虫/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>实验物, 主要目的是对xqwh.org进行帖子爬虫, 顺带学习一下python爬虫</p>
+<p><del>好难!!我是谁我在哪</del></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://awkwardss.github.io/2017/11/28/关于线程分离的一点整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1535,296 +1825,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://awkwardss.github.io/2017/08/21/Median-of-Two-Sorted-Arrays/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AWKWARD-SS">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AWKWARD-SS复健站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/21/Median-of-Two-Sorted-Arrays/" itemprop="url">Median of Two Sorted Arrays</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T12:56:15+08:00">
-                2017-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/21/Median-of-Two-Sorted-Arrays/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/21/Median-of-Two-Sorted-Arrays/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="4-两个有序数列的中位数-Median-of-Two-Sorted-Arrays"><a href="#4-两个有序数列的中位数-Median-of-Two-Sorted-Arrays" class="headerlink" title="4. 两个有序数列的中位数 Median of Two Sorted Arrays"></a>4. 两个有序数列的中位数 Median of Two Sorted Arrays</h2><p>There are two sorted arrays nums1 and nums2 of size m and n respectively.</p>
-<p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
-<p>Example 1:<br>nums1 = [1, 3]<br>nums2 = [2]</p>
-<p>The median is 2.0<br>Example 2:<br>nums1 = [1, 2]<br>nums2 = [3, 4]</p>
-<p>The median is (2 + 3)/2 = 2.5</p>
-<h3 id="SOL1"><a href="#SOL1" class="headerlink" title="SOL1"></a>SOL1</h3><p>由于两个数列都是有序的，直接merge两个数组再求中间值，复杂度O（n）。</p>
-<ul>
-<li>注意最后返回值做除法时，不能直接写/2，会自动进行转换变成int，提醒是要注意返回值的格式</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span>[] array = <span class="keyword">new</span> <span class="keyword">int</span>[nums1.length+nums2.length];</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length &amp;&amp; j&lt;nums2.length)&#123;</div><div class="line">            <span class="keyword">if</span>(nums1[i]&lt;nums2[j])&#123;</div><div class="line">                array[k]=nums1[i];</div><div class="line">                k++;</div><div class="line">                i++;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                array[k]=nums2[j];</div><div class="line">                k++;</div><div class="line">                j++;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(i&lt;nums1.length)&#123;</div><div class="line">            array[k]=nums1[i];</div><div class="line">            k++;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">while</span>(j&lt;nums2.length)&#123;</div><div class="line">            array[k]=nums2[j];</div><div class="line">            k++;</div><div class="line">            j++;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">//compute median</span></div><div class="line">        <span class="keyword">if</span>(array.length%<span class="number">2</span> ==<span class="number">1</span>)&#123;</div><div class="line">            <span class="keyword">return</span> array[(<span class="keyword">int</span>)(array.length/<span class="number">2</span>)];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> (array[(array.length/<span class="number">2</span>)]+array[(array.length/<span class="number">2</span>)-<span class="number">1</span>])/<span class="number">2.0</span>; <span class="comment">//！！！这里一定不能写/2，会自动变成int！！！</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="SOL2"><a href="#SOL2" class="headerlink" title="SOL2"></a>SOL2</h3><p>题目要求里面是需要log(m+n)</p>
-<p>log复杂度, 参考水中的鱼blog的思路, 使用二分法. 其实看到log复杂度应该能直接想到二分的思路.<br><del>脑死,好难,我再想想,思路想出来了竟然不会写我屮艸芔茻</del></p>
-<h3 id="我再想想"><a href="#我再想想" class="headerlink" title="我再想想!!!!"></a>我再想想!!!!</h3>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://awkwardss.github.io/2017/08/21/Longest-Substring-Without-Repeating-Characters/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="AWKWARD-SS">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="AWKWARD-SS复健站">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/" itemprop="url">Longest Substring Without Repeating Characters</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-21T11:52:47+08:00">
-                2017-08-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/08/21/Longest-Substring-Without-Repeating-Characters/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/08/21/Longest-Substring-Without-Repeating-Characters/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="3-最长非重复字符串-Longest-Substring-Without-Repeating-Characters"><a href="#3-最长非重复字符串-Longest-Substring-Without-Repeating-Characters" class="headerlink" title="3. 最长非重复字符串 Longest Substring Without Repeating Characters"></a>3. 最长非重复字符串 Longest Substring Without Repeating Characters</h2><p>Given a string, find the length of the longest substring without repeating characters.</p>
-<p>Examples:</p>
-<p>Given “abcabcbb”, the answer is “abc”, which the length is 3.</p>
-<p>Given “bbbbb”, the answer is “b”, with the length of 1.</p>
-<p>Given “pwwkew”, the answer is “wke”, with the length of 3. Note that the answer must be a substring, “pwke” is a subsequence and not a substring.</p>
-<h3 id="SOL"><a href="#SOL" class="headerlink" title="SOL"></a>SOL</h3><p>看到题想到用map来实现, 具体思路还是参考了网路上这张图↓<br><img src="http://img.blog.csdn.net/20130901224716625" alt="hint"><br>以及网路上的讲解:</p>
-<blockquote>
-<p>假设子串里含有重复字符,则父串一定含有重复字符,单个子问题就可以决定父问题,因此可 以用贪心法。跟动规不同,动规里,单个子问题只能影响父问题,不足以决定父问题。<br>  从左往右扫描,当遇到重复字母时,以上一个重复字母的index+1作为新的搜索起始位置, 直到最后一个字母,复杂度是 O(n)。</p>
-</blockquote>
-<p>但是在实现的时候还是结果有错, 仔细看了下发现是没有考虑多个重复字符的计算问题(eg: abcdba…), 于是在重复字符出现的判定那里又加上了新的变量j用于标示上一个滑动窗口(好名字)的起点,从而把map中前一个窗口的键值都清除.</p>
-<p>*</p>
-<ul>
-<li>map的用法，map在处理字符串的时候感觉很常用</li>
-<li>字符串的用法</li>
-<li>这题没什么太大难度，把背后的逻辑想明白就能得出很好的答案</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (s.length()==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">        HashMap&lt;Character, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Character, Integer&gt;();</div><div class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</div><div class="line">        <span class="keyword">int</span> length = <span class="number">0</span>;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>,j=<span class="number">0</span>; i&lt;s.length(); i++)&#123;</div><div class="line">            <span class="keyword">if</span>(map.containsKey(s.charAt(i)))&#123;</div><div class="line">                <span class="comment">//if occur repeat?</span></div><div class="line">                length = Math.max(length, i-start);</div><div class="line">                start = map.get(s.charAt(i))+<span class="number">1</span>;</div><div class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=j; k&lt;start;k++)&#123;</div><div class="line">                    map.remove(s.charAt(k));</div><div class="line">                &#125;</div><div class="line">                j=start;</div><div class="line">            &#125;</div><div class="line">            map.put(s.charAt(i), i);</div><div class="line">        &#125;</div><div class="line">        length = Math.max(length, s.length()-start);</div><div class="line">        <span class="keyword">return</span> length;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><del>写到一半IntelliJ竟然挂了……<del></del></del></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1879,7 +1879,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1892,7 +1892,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1951,7 +1951,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
